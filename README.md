@@ -1,4 +1,4 @@
-# react seed with es6,radium and rebase bundled with webpack
+# react seed with ES6, radium and rebase bundled with webpack
 
 Seed for react and webpack.
 
@@ -14,7 +14,7 @@ Seed for react and webpack.
 
 Install [node.js](https://nodejs.org) or [io.js](https://iojs.org)
 ```
-git clone https://github.com/sidjain26/.git
-cd es7-webpack-seed
+git clone https://github.com/sidjain26/react-es6-seed.git
+cd react-es6-seed
 npm install
 ```
