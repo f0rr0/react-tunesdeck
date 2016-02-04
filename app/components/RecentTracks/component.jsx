@@ -26,7 +26,7 @@ export default class Header extends React.Component {
     });
     return (
       <div style={styles.base}>
-        <p>{this.state.today}</p>
+        <p>{this.state.today}: Most recent tracks in real time</p>
         <ol>
           {tracks}
         </ol>
