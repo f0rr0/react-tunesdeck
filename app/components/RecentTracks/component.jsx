@@ -3,7 +3,7 @@ import Rebase from 're-base';
 import Radium from 'radium';
 import styles from './style.css';
 
-const Tracks = Rebase.createClass('https://quantifiedself.firebaseio.com');
+const base = Rebase.createClass('https://quantifiedself.firebaseio.com');
 
 @Radium
 export default class Header extends React.Component {
@@ -11,14 +11,9 @@ export default class Header extends React.Component {
     super(props);
     this.state = {
       tracks: [],
+      uri: '',
       today: ''
     };
-    Rebase.listenTo('lastDate', {
-      context: this,
-      then: (date) => {
-        this.setState({ today: date });
-      }
-    });
   }
 
   render() {
@@ -31,7 +26,7 @@ export default class Header extends React.Component {
     });
     return (
       <div style={styles.base}>
-        <h6>{this.state.today}</h6>
+        <p>{this.state.today}</p>
         <ol>
           {tracks}
         </ol>
@@ -40,10 +35,17 @@ export default class Header extends React.Component {
   }
 
   componentDidMount() {
-    Tracks.bindToState(this.state.today, {
+    base.listenTo('lastDate', {
       context: this,
-      state: 'tracks',
-      asArray: true
+      then: (date) => {
+        let tracksUri = date.toString()+'/tracks';
+        this.setState({ today: date, uri: tracksUri });
+        base.bindToState(this.state.uri, {
+          context: this,
+          state: 'tracks',
+          asArray: true
+        });
+      }
     });
     console.log(styles);
   }
