@@ -1,5 +1,5 @@
 {
-  "name": "es7-webpack-seed",
+  "name": "react-es6-seed",
   "version": "1.0.0",
   "description": "A barebones seed project based on webpack module bundler, React and Radium for the view layer and Rebase for the data layer",
   "scripts": {
