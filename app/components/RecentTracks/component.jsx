@@ -20,7 +20,7 @@ export default class Header extends React.Component {
     const tracks = this.state.tracks.map((track) => {
       return (
         <li key={track.key}>
-        {track.title} by {track.artist}
+          <a href={track.link}>{track.title} by {track.artist}</a> 
         </li>
       )
     });
