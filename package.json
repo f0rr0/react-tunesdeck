@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "A barebones seed project based on webpack module bundler, React and Radium for the view layer and Rebase for the data layer",
   "scripts": {
-    "test": "echo \"Specify your own tasks\" && exit 1",
-    "run": "echo \"Specify your own tasks\" && exit 1",
-    "build": "echo \"Specify your own tasks\" && exit 1"
+    "run": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base ./dist --progress --inline",
+    "build": "./node_modules/webpack/bin/webpack.js -p --config webpack.config.js"
   },
-  "author": "Siddharth Jain",
+  "author": "Siddhartth Jain",
   "license": "ISC",
   "dependencies": {
     "radium": "^0.16.5",
@@ -21,19 +20,31 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
+    "babel-preset-react-hmre": "^1.1.0",
     "babel-preset-stage-0": "^6.3.13",
     "babel-register": "^6.4.3",
     "css-loader": "^0.23.1",
+    "express": "^4.13.4",
     "radium-loader": "^1.0.9",
-    "webpack": "^1.12.12"
+    "webpack": "^1.12.12",
+    "webpack-dev-middleware": "^1.5.1",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.6.4"
   },
   "babel": {
-    "plugins": [
-      "transform-decorators-legacy"
-    ],
     "presets": [
       "react",
       "es2015"
-    ]
+    ],
+    "plugins": [
+      "transform-decorators-legacy"
+    ],
+    "env": {
+      "development": {
+        "presets": [
+          "react-hmre"
+        ]
+      }
+    }
   }
 }

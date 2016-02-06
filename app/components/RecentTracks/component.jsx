@@ -6,7 +6,7 @@ import styles from './style.css';
 const base = Rebase.createClass('https://quantifiedself.firebaseio.com');
 
 @Radium
-export default class Header extends React.Component {
+export default class RecentTracks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,12 +20,12 @@ export default class Header extends React.Component {
     const tracks = this.state.tracks.map((track) => {
       return (
         <li key={track.key}>
-          <a href={track.link}>{track.title} by {track.artist}</a> 
+          <a href={track.link}>{track.title} by {track.artist}</a>
         </li>
       )
     });
     return (
-      <div style={styles.base}>
+      <div style={styles['.base']}>
         <p>{this.state.today}: Most recent tracks in real time</p>
         <ol>
           {tracks}
