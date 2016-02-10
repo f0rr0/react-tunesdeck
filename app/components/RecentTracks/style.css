@@ -4,6 +4,14 @@
   padding: 10px;
   box-sizing: border-box;
 }
+.base h3 {
+  color: #FFFFFF;
+  text-align: center;
+  display: block;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+}
 .base a {
   text-decoration: none;
 }

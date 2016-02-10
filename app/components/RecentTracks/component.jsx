@@ -57,6 +57,7 @@ export default class RecentTracks extends React.Component {
       });
       return (
         <div className='base'>
+          <h3>My music in realtime</h3>
           <ul>
             {tracks}
           </ul>
