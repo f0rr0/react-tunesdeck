@@ -1,2 +1,5 @@
 node_modules
-dist/bundle.js
+dist
+TODOS
+.DS_Store
+npm-debug.log

@@ -1,52 +1,67 @@
 import React from 'react';
 import Rebase from 're-base';
-import Radium from 'radium';
-import styles from './style.css';
+import TrackItem from './TrackItem/component.jsx';
+import './style.css';
 
 const base = Rebase.createClass('https://quantifiedself.firebaseio.com');
 
-@Radium
-export default class Header extends React.Component {
-  constructor(props) {
-    super(props);
+export default class RecentTracks extends React.Component {
+
+  constructor() {
+    super();
     this.state = {
-      tracks: [],
-      uri: '',
-      today: ''
+      tracks: null,
     };
   }
 
-  render() {
-    const tracks = this.state.tracks.map((track) => {
-      return (
-        <li key={track.key}>
-          <a href={track.link}>{track.title} by {track.artist}</a> 
-        </li>
-      )
-    });
-    return (
-      <div style={styles.base}>
-        <p>{this.state.today}: Most recent tracks in real time</p>
-        <ol>
-          {tracks}
-        </ol>
-      </div>
-    );
-  }
-
-  componentDidMount() {
-    base.listenTo('lastDate', {
+  init() {
+    this.ref1 = undefined;
+    this.ref2 = base.listenTo('lastDate', {
       context: this,
       then: (date) => {
-        let tracksUri = date.toString()+'/tracks';
-        this.setState({ today: date, uri: tracksUri });
-        base.bindToState(this.state.uri, {
+        let tracksUri = date.toString() + '/tracks';
+        this.ref1 = base.listenTo(tracksUri, {
           context: this,
-          state: 'tracks',
-          asArray: true
+          asArray: true,
+          then: (tracks) => {
+            this.setState({ tracks: tracks.slice(0, 5) });
+          },
         });
-      }
+      },
     });
-    console.log(styles);
+  }
+
+  componentWillMount() {
+    this.init();
+  }
+
+  componentWillUnmount() {
+    if (this.ref2) {
+      base.removeBinding(this.ref2);
+    }
+
+    if (this.ref1) {
+      base.removeBinding(this.ref1);
+    }
+  }
+
+  render() {
+    if (!this.state.tracks) {
+      return null;
+      console.log('Waiting for data');
+    } else {
+      const tracks = this.state.tracks.map((track) => {
+        return (
+        <TrackItem key={track.key} title={track.title} artist={track.artist} link= {track.link} thumbs={track.thumbs} timestamp={track.timestamp}></TrackItem>
+        );
+      });
+      return (
+        <div className='base'>
+          <ul>
+            {tracks}
+          </ul>
+        </div>
+      );
+    }
   }
 }

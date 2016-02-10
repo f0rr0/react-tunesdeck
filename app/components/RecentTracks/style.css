@@ -1,4 +1,47 @@
-base {
-  font-family: monospace;
-  background-color: #BADA55;
+.base {
+  background-color: #282828;
+  font-family: Dosis-Regular;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.base a {
+  text-decoration: none;
+}
+.base .track {
+  margin-bottom: 10px;
+  min-height: 87px;
+  /*border-bottom: 1px solid #999797;*/
+}
+.base .thumb {
+  display: block;
+  float: left;
+  width: 87px;
+  height: 87px;
+  margin-right: 10px;
+  background-size: cover;
+  background-position: center;
+}
+.base .title {
+  font-size: 18px;
+  color: #FFFFFF;
+  line-height: 22px;
+  display: block;
+}
+.base .artist {
+  font-size: 12px;
+  color: #999797;
+  line-height: 15px;
+  display: block;
+}
+.base .timestamp {
+font-size: 10px;
+color: #999797;
+line-height: 12px;
+display: block;
+}
+.base ul {
+  padding-left: 10px;
+}
+.base ul li {
+  list-style-type: none;
 }
