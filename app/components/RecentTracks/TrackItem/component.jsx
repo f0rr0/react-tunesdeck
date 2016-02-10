@@ -6,18 +6,21 @@ export default class TrackItem extends React.Component {
     title: PropTypes.string.isRequired,
     artist: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
-    thumbalt: PropTypes.string,
     thumbs: PropTypes.object.isRequired,
     timestamp: PropTypes.object.isRequired,
   };
+
   static defaultProps = {
     title: '-',
     artist: '-',
     link: null,
-    thumbalt: null,
     thumbs: null,
     timestamp: null,
   };
+
+  constructor() {
+    super();
+  }
 
   render() {
     const { title, artist, timestamp, link } = this.props;

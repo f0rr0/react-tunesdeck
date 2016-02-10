@@ -2,8 +2,8 @@ import React from 'react';
 import Ago from 'react-timeago';
 
 export default class TimeStamp extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
   }
 
   render() {
