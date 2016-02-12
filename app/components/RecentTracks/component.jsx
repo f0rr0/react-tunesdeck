@@ -3,7 +3,7 @@ import Rebase from 're-base';
 import TrackItem from './TrackItem/component.jsx';
 import './style.css';
 
-const base = Rebase.createClass('https://quantifiedself.firebaseio.com');
+const base = Rebase.createClass('https://meapi.firebaseio.com');
 
 export default class RecentTracks extends React.Component {
 
@@ -19,7 +19,7 @@ export default class RecentTracks extends React.Component {
     this.ref2 = base.listenTo('lastDate', {
       context: this,
       then: (date) => {
-        let tracksUri = date.toString() + '/tracks';
+        let tracksUri = date.toString() + '/recentTracks';
         this.ref1 = base.listenTo(tracksUri, {
           context: this,
           asArray: true,
@@ -47,7 +47,12 @@ export default class RecentTracks extends React.Component {
 
   render() {
     if (!this.state.tracks) {
-      return null;
+      console.log('Waiting for data!');
+      return (
+        <div className='base'>
+          <h3>Loading...</h3>
+        </div>
+      );
       console.log('Waiting for data');
     } else {
       const tracks = this.state.tracks.map((track) => {
