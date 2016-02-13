@@ -23,8 +23,15 @@ export default class RecentTracks extends React.Component {
         this.ref1 = base.listenTo(tracksUri, {
           context: this,
           asArray: true,
-          then: (tracks) => {
-            this.setState({ tracks: tracks.slice(0, 5) });
+          then: (allTracks) => {
+            var cache = '';
+            var tracks = allTracks.filter((track) => {
+              if (cache.indexOf(track.title + track.artist) <= -1) {
+                cache = cache + track.title + track.artist;
+                return track;
+              }
+            }).slice(0, 5);
+            this.setState({ tracks: tracks });
           },
         });
       },
@@ -56,9 +63,11 @@ export default class RecentTracks extends React.Component {
       console.log('Waiting for data');
     } else {
       const tracks = this.state.tracks.map((track) => {
-        return (
-        <TrackItem key={track.key} title={track.title} artist={track.artist} link= {track.link} thumbs={track.thumbs} timestamp={track.timestamp}></TrackItem>
-        );
+        if (track) {
+          return (
+          <TrackItem key={track.key} title={track.title} artist={track.artist} link= {track.link} thumbs={track.thumbs} timestamp={track.timestamp}></TrackItem>
+          );
+        }
       });
       return (
         <div className='base'>
