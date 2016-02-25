@@ -1,6 +1,6 @@
 node_modules
 dist
-TODOS
+TODOS.txt
 .DS_Store
 npm-debug.log
 google_backend
