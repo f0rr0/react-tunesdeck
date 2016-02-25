@@ -1,6 +1,9 @@
 import React from 'react';
 import Rebase from 're-base';
 import TrackItem from './TrackItem/component.jsx';
+import FlipMove from 'react-flip-move';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import './style.css';
 
 const base = Rebase.createClass('https://meapi.firebaseio.com');
@@ -15,7 +18,7 @@ export default class RecentTracks extends React.Component {
   }
 
   init() {
-    this.ref1 = undefined;
+    this.ref1 = null;
     this.ref2 = base.listenTo('lastDate', {
       context: this,
       then: (date) => {
@@ -24,18 +27,23 @@ export default class RecentTracks extends React.Component {
           context: this,
           asArray: true,
           then: (allTracks) => {
-            var cache = '';
-            var tracks = allTracks.filter((track) => {
-              if (cache.indexOf(track.title + track.artist) <= -1) {
-                cache = cache + track.title + track.artist;
+            let cache = [];
+            const tracks = allTracks.filter((track) => {
+              track.id = this.getTrackKey(track);
+              if (cache.indexOf(track.id) <= -1) {
+                cache.push(track.id);
                 return track;
               }
-            }).slice(0, 5);
+            }).splice(0, 5);
             this.setState({ tracks: tracks });
           },
         });
       },
     });
+  }
+
+  getTrackKey(track) {
+    return (track.title + track.artist).replace(/ /g, '').toLowerCase();
   }
 
   componentWillMount() {
@@ -57,24 +65,48 @@ export default class RecentTracks extends React.Component {
       console.log('Waiting for data!');
       return (
         <div className='base'>
-          <h3>Loading...</h3>
+          <h3>Fetching tracks...</h3>
         </div>
       );
-      console.log('Waiting for data');
     } else {
       const tracks = this.state.tracks.map((track) => {
         if (track) {
           return (
-          <TrackItem key={track.key} title={track.title} artist={track.artist} link= {track.link} thumbs={track.thumbs} timestamp={track.timestamp}></TrackItem>
+            <ReactCSSTransitionGroup
+              key={track.id}
+              transitionName='base'
+              component='li'
+              transitionAppear={true}
+              transitionAppearTimeout={500}
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={500}
+            >
+              <TrackItem
+                key={track.id}
+                title={track.title}
+                artist={track.artist}
+                link= {track.link}
+                thumbs={track.thumbs}
+                timestamp={track.timestamp}
+              >
+              </TrackItem>
+            </ReactCSSTransitionGroup>
           );
         }
       });
+
       return (
         <div className='base'>
-          <h3>My music in realtime</h3>
-          <ul>
-            {tracks}
-          </ul>
+            <FlipMove
+              duration={500}
+              delay={0}
+              easing={'linear'}
+              staggerDurationBy={0}
+              staggerDelayBy={0}
+              typeName='ul'
+            >
+              {tracks}
+            </FlipMove>
         </div>
       );
     }

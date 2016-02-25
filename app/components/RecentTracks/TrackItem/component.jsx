@@ -29,14 +29,16 @@ export default class TrackItem extends React.Component {
     };
 
     return (
-      <li className='track'>
+      <div className='track'>
         <div className='thumb' style={thumb}></div>
+      <div className='info'>
         <a href={link}>
-          <span className='title'>{title}</span>
-          <span className='artist'>{artist}</span>
-        </a>
-        <TimeStamp className='timestamp' timestamp={timestamp} />
-      </li>
+            <span className='title'>{title}</span>
+            <span className='artist'>{artist}</span>
+          </a>
+          <TimeStamp className='timestamp' timestamp={timestamp} />
+      </div>
+      </div>
     );
   }
 }
