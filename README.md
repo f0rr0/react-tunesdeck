@@ -1,4 +1,7 @@
 # Demo
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/f0rr0/react-tunesdeck.svg)](https://greenkeeper.io/)
+
 [recent.surge.sh](https://recent.surge.sh)
 
 Check [https://github.com/sidjain26/bot](https://github.com/sidjain26/bot) for hints on implementing the backend.
